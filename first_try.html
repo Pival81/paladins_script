@@ -1,0 +1,48 @@
+<html>
+
+	<head>
+	
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="https://rawgit.com/phstc/jquery-dateFormat/master/dist/jquery-dateformat.min.js"></script>
+		<script src="https://rawgit.com/gabrieleromanato/jQuery-MD5/master/jquery.md5.min.js"></script>
+	
+		<script>
+			var devid = "2518";
+			var authkey = "BF4E10BFD82145C89BFB4340F26754EA";
+		
+			function timestamp() {
+				var today = new Date();
+				var date = $.format.date(today, "yyyyMMddHHmmss")
+				return date;
+			}
+		
+			function signature(method) {
+				var signature = devid + method + authkey + timestamp();
+				var signature_encrypted = $.md5(signature);
+				return signature_encrypted;
+			}
+		</script>
+	
+		<script>
+			$(document).ready(function(){
+				$("button").click(function(){
+					var url = "http://api.paladins.com/paladinsapi.svc/createsessionJson" + "/" + devid + "/" + signature("createsession") + "/" + timestamp();
+					console.log(url);
+					jQuery.ajax({
+						url: url,
+						dataType: 'json',
+						type: "GET",
+						success: function(data) {
+							console.log(data);
+						}
+					});
+				});
+			});
+		</script>
+	</head>
+	<body>
+
+		<button>Send an HTTP GET request to a page and get the result back</button>
+
+	</body>
+</html>
