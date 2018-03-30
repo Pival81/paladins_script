@@ -1,7 +1,9 @@
+<!DOCTYPE html>
 <html>
 
 	<head>
 	
+		<meta charset="utf-8"/>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://rawgit.com/phstc/jquery-dateFormat/master/dist/jquery-dateformat.min.js"></script>
 		<script src="https://rawgit.com/gabrieleromanato/jQuery-MD5/master/jquery.md5.min.js"></script>
@@ -28,14 +30,7 @@
 				$("button").click(function(){
 					var url = "http://api.paladins.com/paladinsapi.svc/createsessionJson" + "/" + devid + "/" + signature("createsession") + "/" + timestamp();
 					console.log(url);
-					jQuery.ajax({
-						url: url,
-						dataType: 'json',
-						type: "GET",
-						success: function(data) {
-							console.log(data);
-						}
-					});
+					$.get(url, function(data) { console.log(data); } );
 				});
 			});
 		</script>
