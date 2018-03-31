@@ -42,6 +42,7 @@ def getmatchhistory():
 
 def getplayer(print_data):	
 	playerinfo = requests.get("http://api.paladins.com/paladinsapi.svc/getplayerJson/" + devid + '/' + signature("getplayer") + '/' + session_id + '/' + timestamp() + '/' + player)
+	print(playerinfo.headers)
 	playerinfo_json = json.loads(playerinfo.text)[0]
 	if print_data == 1:
 		print("Level:", playerinfo_json["Level"])

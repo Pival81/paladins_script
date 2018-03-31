@@ -7,14 +7,15 @@
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 		<script src="https://rawgit.com/phstc/jquery-dateFormat/master/dist/jquery-dateformat.min.js"></script>
 		<script src="https://rawgit.com/gabrieleromanato/jQuery-MD5/master/jquery.md5.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js"></script>
 	
 		<script>
 			var devid = "2518";
 			var authkey = "BF4E10BFD82145C89BFB4340F26754EA";
 		
 			function timestamp() {
-				var today = new Date();
-				var date = $.format.date(today, "yyyyMMddHHmmss")
+				var today = new Date().getTime();
+				var date = $.format.date(today, "yyyyMMddHHmmss");
 				return date;
 			}
 		
@@ -24,13 +25,25 @@
 				return signature_encrypted;
 			}
 		</script>
-	
+
 		<script>
 			$(document).ready(function(){
 				$("button").click(function(){
 					var url = "http://api.paladins.com/paladinsapi.svc/createsessionJson" + "/" + devid + "/" + signature("createsession") + "/" + timestamp();
+					var url = "http://api.paladins.com/paladinsapi.svc/createsessionJson/2518/d5db4a0f04e0771eeb2b7a6ca12dd370/20180330182631"
 					console.log(url);
-					$.get(url, function(data) { console.log(data); } );
+					var xhr = new XMLHttpRequest();
+					xhr.open('GET', url, true);
+					xhr.setRequestHeader('Content-type', 'application/json');
+					xhr.setRequestHeader('Accept', 'application/json');
+					xhr.onload = function() {
+					  if (xhr.status >= 200 && xhr.status < 300) {
+					    console.log(xhr.response);
+					  } else {
+					    console.log('Error !');
+					  }
+					};
+					xhr.send();
 				});
 			});
 		</script>
