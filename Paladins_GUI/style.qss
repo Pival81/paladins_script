@@ -1,0 +1,17 @@
+QLabel {
+    font-size: 20px;
+    
+}
+
+#mainwidget {
+    background-color: lightblue;
+}
+
+#playername {
+    font-size: 30px;
+    margin-top: 15px;
+    background-color: red;
+    border: 1px solid darkred;
+    border-radius: 4px;
+    qproperty-alignment: AlignHCenter;
+}
